@@ -1,6 +1,6 @@
 # Ticket-System
 
-## Analysis:
+## 1. Analysis:
 Scenario ideation, use case analysis and user story writing.
 
 ## 2. Domain Design:
