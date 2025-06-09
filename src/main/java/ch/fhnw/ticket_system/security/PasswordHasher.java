@@ -4,7 +4,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /*****************************************************************
- * This class is used to hash passwords using BCrypt.
+ * This class is used to hash passwords using BCrypt. It is not used for the main application
+ * but can be used to generate hashed passwords for user accounts (in the database).
  *****************************************************************/
 
 public class PasswordHasher {

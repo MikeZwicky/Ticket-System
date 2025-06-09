@@ -34,7 +34,6 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/api/login",
                     "/v3/api-docs/**",
-                    "/api/register",
                     "/swagger-ui.html",
                     "/swagger-ui/**",
                     "/swagger-resources/**",
@@ -47,8 +46,9 @@ public class SecurityConfig {
                 ).permitAll()
 
                 // Protected endpoints
+                .requestMatchers("/api/register").anonymous()
                 .requestMatchers("/api/ratings/{ratingId}").hasAnyRole("User", "Admin")
-                .requestMatchers("/api/ratings/").hasAnyRole("User", "Admin")
+                .requestMatchers("/api/ratings").hasAnyRole("User", "Admin")
                 .requestMatchers("/api/ratings/support/{supportId}").hasAnyRole("Support", "Admin")
                 .requestMatchers("/api/ratings/support/{supportId}/average").hasAnyRole("Support", "Admin")
 

@@ -16,6 +16,10 @@ import ch.fhnw.ticket_system.data.dto.MessageCreationDTO;
 import ch.fhnw.ticket_system.data.dto.MessageInfoDTO;
 import ch.fhnw.ticket_system.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -42,13 +46,39 @@ public class MessageController {
         description = """
             Creates a message under a ticket if the sender is the creator or assigned support.
             The message text must not be empty.
-            It eigther switches the ticket status for the assigned support and ticket creator or keeps them the same. It uses the keywords "keep" or "switch" to determine the action.
+            It either switches the ticket status for the assigned support and ticket creator or keeps them the same.
+            It uses the keywords "Keep" or "Switch" to determine the action.
             Returns the full list of messages for the given ticket after creation.
         """
     )
     public List<MessageInfoDTO> createMessage(
-            @RequestBody MessageCreationDTO dto,
-            @RequestParam(required = false) String status) {
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            description = "The message content to be created",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = MessageCreationDTO.class),
+                examples = @ExampleObject(
+                    name = "CreateMessageExample",
+                    summary = "Example message creation",
+                    value = """
+                    {
+                      "text": "The issue is still there.",
+                      "userId": 1,
+                      "ticketId": 1
+                    }
+                    """
+                )
+            )
+        )
+        @RequestBody MessageCreationDTO dto,
+
+        @Parameter(
+            description = "Status change instruction: 'Keep' or 'Switch'",
+            example = "Switch"
+        )
+        @RequestParam(required = false) String status
+    ) {
         return messageService.createMessage(dto, status);
     }
 
@@ -60,7 +90,13 @@ public class MessageController {
         summary = "Get message by ID",
         description = "Retrieves a single message based on its unique message ID."
     )
-    public MessageInfoDTO getMessage(@PathVariable Long id) {
+    public MessageInfoDTO getMessage(
+        @Parameter(
+            description = "The unique identifier of the message",
+            example = "1"
+        )
+        @PathVariable Long id
+    ) {
         return messageService.getMessageById(id);
     }
 
@@ -72,7 +108,13 @@ public class MessageController {
         summary = "Get all messages of a ticket",
         description = "Retrieves all messages associated with a specific ticket, ordered by creation time."
     )
-    public List<MessageInfoDTO> getMessagesByTicket(@PathVariable Long ticketId) {
+    public List<MessageInfoDTO> getMessagesByTicket(
+        @Parameter(
+            description = "The ID of the ticket to retrieve messages for",
+            example = "1"
+        )
+        @PathVariable Long ticketId
+    ) {
         return messageService.getMessagesByTicketId(ticketId);
     }
 
@@ -88,12 +130,41 @@ public class MessageController {
             - The message was created within the last 30 minutes.
             - No newer messages exist from other users.
             - The message is not empty.
+            
             Returns the full list of messages for the ticket after update.
         """
     )
-    public List<MessageInfoDTO> updateMessage(@PathVariable Long messageId, @RequestBody MessageCreationDTO dto) {
+    public List<MessageInfoDTO> updateMessage(
+        @Parameter(
+            description = "The ID of the message to update",
+            example = "44"
+        )
+        @PathVariable Long messageId,
+
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            description = "The updated message content",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = MessageCreationDTO.class),
+                examples = @ExampleObject(
+                    name = "UpdateMessageExample",
+                    summary = "Example of updating a message",
+                    value = """
+                    {
+                    "text": "The issue is still there. Here is a screenshot:",
+                    "userId": 1,
+                    "ticketId": 1
+                    }
+                    """
+                )
+            )
+        )
+        @RequestBody MessageCreationDTO dto
+    ) {
         return messageService.updateMessage(messageId, dto);
     }
+
 
     /*-----------------------------------------------------------------
      * CRUD: Delete
@@ -107,11 +178,23 @@ public class MessageController {
             - The associated ticket is in 'Open' or 'Pending' status.
             - The requesting user is the original creator.
             Rolls back the ticket status to its previous state if it was changed by the deleted message.
+            
             Returns the full list of messages for the ticket after deletion.
         """
     )
-    public List<MessageInfoDTO> deleteMessage(@PathVariable Long messageId,
-                                              @RequestParam Long userId) {
+    public List<MessageInfoDTO> deleteMessage(
+        @Parameter(
+            description = "The ID of the message to delete",
+            example = "44"
+        )
+        @PathVariable Long messageId,
+
+        @Parameter(
+            description = "The ID of the user requesting the deletion",
+            example = "1"
+        )
+        @RequestParam Long userId
+    ) {
         return messageService.deleteMessage(messageId, userId);
     }
 }
