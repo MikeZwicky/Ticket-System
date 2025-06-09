@@ -36,8 +36,8 @@ public class Ticket {
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "assigned_to")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "assigned_to", nullable = false)
     private User assignedTo;
 
     @OneToOne(fetch = FetchType.LAZY)
