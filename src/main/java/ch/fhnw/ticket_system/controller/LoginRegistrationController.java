@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ch.fhnw.ticket_system.data.domain.User;
 import ch.fhnw.ticket_system.data.domain.UserRole;
 import ch.fhnw.ticket_system.data.dto.LoginRequest;
+import ch.fhnw.ticket_system.data.dto.LoginResponse;
 import ch.fhnw.ticket_system.data.dto.RegisterRequest;
 import ch.fhnw.ticket_system.data.repository.UserRepository;
 import ch.fhnw.ticket_system.security.JwtTokenProvider;
@@ -47,7 +48,7 @@ public class LoginRegistrationController {
         summary = "User login",
         description = """
             Authenticates a user using either email or username and password.
-            Returns JWT token on success.
+            Returns JWT token and redirect URL on success.
             Returns HTTP 401 if credentials are invalid.
         """
     )
@@ -78,9 +79,25 @@ public class LoginRegistrationController {
         User user = userOpt.get();
         String token = jwtTokenProvider.createToken(user.getUsername(), user.getRole().name());
 
+        // Determine redirect URL based on role
+        String redirectUrl;
+        switch (user.getRole()) {
+            case Admin:
+                redirectUrl = "/admin";
+                break;
+            case Support:
+                redirectUrl = "/support";
+                break;
+            case User:
+            default:
+                redirectUrl = "/user";
+        }
+
+        LoginResponse response = new LoginResponse(token, redirectUrl);
+
         return ResponseEntity.ok()
                 .header("Authorization", "Bearer " + token)
-                .body(token);
+                .body(response);
     }
 
     /*****************************************************************
@@ -132,5 +149,4 @@ public class LoginRegistrationController {
 
         return ResponseEntity.ok("User registered successfully");
     }
-
 }
