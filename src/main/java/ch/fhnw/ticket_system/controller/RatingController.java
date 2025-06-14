@@ -67,6 +67,22 @@ public class RatingController {
         return ratingService.createRating(dto);
     }
 
+    /*-----------------------------------------------------------------
+    * CRUD: Read (rating for a specific ticket)
+    -----------------------------------------------------------------*/
+    @GetMapping("/ticket/{ticketId}")
+    @Operation(
+        summary = "Get rating for a ticket",
+        description = "Retrieves the rating associated with a specific ticket ID."
+    )
+    public RatingInfoDTO getRatingForTicket(
+        @io.swagger.v3.oas.annotations.Parameter(
+            description = "ID of the ticket to retrieve the rating for",
+            example = "3"
+        )
+        @PathVariable Long ticketId) {
+        return ratingService.getRatingForTicket(ticketId);
+    }
 
     /*-----------------------------------------------------------------
      * CRUD: Read (ratings for an support)

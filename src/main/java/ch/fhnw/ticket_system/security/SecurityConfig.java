@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/register").anonymous()
                 .requestMatchers("/api/ratings/{ratingId}").hasAnyRole("User", "Admin")
                 .requestMatchers("/api/ratings").hasAnyRole("User", "Admin")
+                .requestMatchers("/api/ratings//ticket/{ticketId}").hasAnyRole("User", "Support", "Admin")
                 .requestMatchers("/api/ratings/support/{supportId}").hasAnyRole("Support", "Admin")
                 .requestMatchers("/api/ratings/support/{supportId}/average").hasAnyRole("Support", "Admin")
 

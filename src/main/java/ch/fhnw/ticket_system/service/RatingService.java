@@ -86,6 +86,17 @@ public class RatingService {
         return toDTO(rating);
     }
 
+    // CRUD: READ (Rating for a specific ticket)
+    public RatingInfoDTO getRatingForTicket(Long ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new IllegalArgumentException("Ticket not found."));
+
+        Rating rating = ratingRepository.findByTicket(ticket)
+                .orElseThrow(() -> new IllegalArgumentException("No rating found for this ticket."));
+
+        return toDTO(rating);
+    }
+
     // CRUD: READ (Ratings for Support)
     public List<RatingInfoDTO> getRatingsForSupport(Long supportId) {
         User user = userRepository.findById(supportId)
