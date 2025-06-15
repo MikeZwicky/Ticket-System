@@ -451,8 +451,8 @@ There are 7 users registered with the roles "User", "Support" and "Admin". For t
 
 The demonstration was recorded. The video was uploaded on steam.
 
-## Additional remarks
+## 8. Project documentation
 
-The project documentation is saved as "Project Documentation.pdf" on main
+The project documentation is saved as "Project Documentation.pdf" on main.
 
 
