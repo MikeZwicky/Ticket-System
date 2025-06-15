@@ -9,10 +9,13 @@
       "installMaven": true,
       "mavenVersion": "3.9.8",
       "installGradle": false
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
     }
   },
 
-  "forwardPorts": [8080],
+  "forwardPorts": [8080, 5173],
 
   "customizations": {
     "vscode": {

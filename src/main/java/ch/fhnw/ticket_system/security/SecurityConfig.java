@@ -45,13 +45,16 @@ public class SecurityConfig {
                     "/h2-console/**"
                 ).permitAll()
 
+                // User information endpoint
+                .requestMatchers("/api/user/current").authenticated()
+
                 // Protected endpoints
                 .requestMatchers("/api/register").anonymous()
                 .requestMatchers("/api/ratings/{ratingId}").hasAnyRole("User", "Admin")
                 .requestMatchers("/api/ratings").hasAnyRole("User", "Admin")
-                .requestMatchers("/api/ratings//ticket/{ticketId}").hasAnyRole("User", "Support", "Admin")
                 .requestMatchers("/api/ratings/support/{supportId}").hasAnyRole("Support", "Admin")
-                .requestMatchers("/api/ratings/support/{supportId}/average").hasAnyRole("Support", "Admin")
+
+                .requestMatchers("/api/ratings/support/{supportId}/average").hasAnyRole("Support", "Admin").requestMatchers("/api/ratings//ticket/{ticketId}").hasAnyRole("User", "Support", "Admin")
 
                 .requestMatchers("/api/tickets/filter/{status}").hasAnyRole("User", "Support", "Admin")
                 .requestMatchers("/api/tickets/all").hasAnyRole("Admin")

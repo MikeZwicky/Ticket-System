@@ -41,7 +41,7 @@ public class RatingService {
     // CREATE
     public RatingInfoDTO createRating(RatingCreationDTO dto) {
         Ticket ticket = ticketRepository.findById(dto.getTicketId())
-        .orElseThrow(() -> new IllegalArgumentException("Ticket not found."));
+                .orElseThrow(() -> new IllegalArgumentException("Ticket not found."));
 
         if (dto.getRating() < 1 || dto.getRating() > 5) {
             throw new IllegalArgumentException("Rating must be between 1 and 5.");

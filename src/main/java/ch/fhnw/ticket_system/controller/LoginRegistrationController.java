@@ -1,10 +1,15 @@
 package ch.fhnw.ticket_system.controller;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ch.fhnw.ticket_system.data.domain.User;
 import ch.fhnw.ticket_system.data.domain.UserRole;
 import ch.fhnw.ticket_system.data.dto.LoginRequest;
-import ch.fhnw.ticket_system.data.dto.LoginResponse;
 import ch.fhnw.ticket_system.data.dto.RegisterRequest;
 import ch.fhnw.ticket_system.data.repository.UserRepository;
 import ch.fhnw.ticket_system.security.JwtTokenProvider;
@@ -48,7 +52,7 @@ public class LoginRegistrationController {
         summary = "User login",
         description = """
             Authenticates a user using either email or username and password.
-            Returns JWT token and redirect URL on success.
+            Returns JWT token on success.
             Returns HTTP 401 if credentials are invalid.
         """
     )
@@ -77,27 +81,11 @@ public class LoginRegistrationController {
         }
 
         User user = userOpt.get();
-        String token = jwtTokenProvider.createToken(user.getUsername(), user.getRole().name());
-
-        // Determine redirect URL based on role
-        String redirectUrl;
-        switch (user.getRole()) {
-            case Admin:
-                redirectUrl = "/admin";
-                break;
-            case Support:
-                redirectUrl = "/support";
-                break;
-            case User:
-            default:
-                redirectUrl = "/user";
-        }
-
-        LoginResponse response = new LoginResponse(token, redirectUrl);
+        String token = jwtTokenProvider.createToken(user.getUsername(), user.getRole().name(), user.getUserId());
 
         return ResponseEntity.ok()
                 .header("Authorization", "Bearer " + token)
-                .body(response);
+                .body(token);
     }
 
     /*****************************************************************
@@ -148,5 +136,40 @@ public class LoginRegistrationController {
         userRepository.save(newUser);
 
         return ResponseEntity.ok("User registered successfully");
+    }
+
+    /*****************************************************************
+     * Current User Information
+     *****************************************************************/
+
+    @GetMapping("/user/current")
+    @Operation(
+        summary = "Get current user information",
+        description = "Returns information about the currently authenticated user, including their role."
+    )
+    public ResponseEntity<?> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !authentication.isAuthenticated() || 
+            authentication.getName().equals("anonymousUser")) {
+            return ResponseEntity.status(401).body("Not authenticated");
+        }
+
+        String username = authentication.getName();
+        Optional<User> userOpt = userRepository.findByUsername(username);
+
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.status(404).body("User not found");
+        }
+
+        User user = userOpt.get();
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("userId", user.getUserId());
+        userInfo.put("username", user.getUsername());
+        userInfo.put("email", user.getEmail());
+        userInfo.put("role", user.getRole().name());
+        userInfo.put("createdAt", user.getCreatedAt());
+
+        return ResponseEntity.ok(userInfo);
     }
 }

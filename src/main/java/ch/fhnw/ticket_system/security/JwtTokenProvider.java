@@ -16,13 +16,14 @@ public class JwtTokenProvider {
     private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long validityInMs = 3600000; // 1h
 
-    public String createToken(String username, String role) {
+    public String createToken(String username, String role, long userId) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + validityInMs);
 
         return Jwts.builder()
                 .setSubject(username)
                 .claim("role", role)
+                .claim("userId", userId)
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(secretKey)

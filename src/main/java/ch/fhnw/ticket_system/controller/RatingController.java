@@ -38,8 +38,8 @@ public class RatingController {
      -----------------------------------------------------------------*/
     @PostMapping
     @Operation(
-        summary = "Create a new rating",
-        description = """
+            summary = "Create a new rating",
+            description = """
             Creates a rating for a ticket by its creator.
             The ticket must be in 'Open' or 'Pending' status.
             Rating must be an integer between 1 and 5.
@@ -47,12 +47,12 @@ public class RatingController {
         """
     )
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
-        required = true,
-        content = @io.swagger.v3.oas.annotations.media.Content(
-            mediaType = "application/json",
-            examples = @io.swagger.v3.oas.annotations.media.ExampleObject(
-                name = "Create Rating Example",
-                value = """
+            required = true,
+            content = @io.swagger.v3.oas.annotations.media.Content(
+                    mediaType = "application/json",
+                    examples = @io.swagger.v3.oas.annotations.media.ExampleObject(
+                            name = "Create Rating Example",
+                            value = """
                     {
                     "ticketId": 4,
                     "text": "Thank you, it works now!",
@@ -60,8 +60,8 @@ public class RatingController {
                     "createdById": 4
                     }
                     """
+                    )
             )
-        )
     )
     public RatingInfoDTO createRating(@RequestBody RatingCreationDTO dto) {
         return ratingService.createRating(dto);
@@ -72,15 +72,15 @@ public class RatingController {
     -----------------------------------------------------------------*/
     @GetMapping("/ticket/{ticketId}")
     @Operation(
-        summary = "Get rating for a ticket",
-        description = "Retrieves the rating associated with a specific ticket ID."
+            summary = "Get rating for a ticket",
+            description = "Retrieves the rating associated with a specific ticket ID."
     )
     public RatingInfoDTO getRatingForTicket(
-        @io.swagger.v3.oas.annotations.Parameter(
-            description = "ID of the ticket to retrieve the rating for",
-            example = "3"
-        )
-        @PathVariable Long ticketId) {
+            @io.swagger.v3.oas.annotations.Parameter(
+                    description = "ID of the ticket to retrieve the rating for",
+                    example = "3"
+            )
+            @PathVariable Long ticketId) {
         return ratingService.getRatingForTicket(ticketId);
     }
 
@@ -89,15 +89,15 @@ public class RatingController {
      -----------------------------------------------------------------*/
     @GetMapping("/support/{supportId}")
     @Operation(
-        summary = "Get all ratings for a support",
-        description = "Retrieves all individual ratings received by a specific support."
+            summary = "Get all ratings for a support",
+            description = "Retrieves all individual ratings received by a specific support."
     )
     public List<RatingInfoDTO> getRatingsForSupport(
-        @io.swagger.v3.oas.annotations.Parameter(
-            description = "ID of the support to retrieve ratings for",
-            example = "6"
-        )
-        @PathVariable Long supportId) {
+            @io.swagger.v3.oas.annotations.Parameter(
+                    description = "ID of the support to retrieve ratings for",
+                    example = "6"
+            )
+            @PathVariable Long supportId) {
         return ratingService.getRatingsForSupport(supportId);
     }
 
@@ -107,15 +107,15 @@ public class RatingController {
      -----------------------------------------------------------------*/
     @GetMapping("/support/{supportId}/average")
     @Operation(
-        summary = "Get average rating for a support",
-        description = "Calculates and returns the average rating score for a specific support based on all received ratings."
+            summary = "Get average rating for a support",
+            description = "Calculates and returns the average rating score for a specific support based on all received ratings."
     )
     public Double getAverageRatingForSupport(
-        @io.swagger.v3.oas.annotations.Parameter(
-            description = "ID of the support to calculate average rating for",
-            example = "6"
-        )
-        @PathVariable Long supportId) {
+            @io.swagger.v3.oas.annotations.Parameter(
+                    description = "ID of the support to calculate average rating for",
+                    example = "6"
+            )
+            @PathVariable Long supportId) {
         return ratingService.getAverageRatingForSupport(supportId);
     }
 
@@ -124,19 +124,19 @@ public class RatingController {
      -----------------------------------------------------------------*/
     @PutMapping("/{ratingId}")
     @Operation(
-        summary = "Update a rating",
-        description = """
+            summary = "Update a rating",
+            description = """
             Allows the original creator to update the rating text and/or value within 30 minutes of creation.
             If a field (text or rating) is null or empty, its existing value is retained.
         """
     )
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
-        required = true,
-        content = @io.swagger.v3.oas.annotations.media.Content(
-            mediaType = "application/json",
-            examples = @io.swagger.v3.oas.annotations.media.ExampleObject(
-                name = "Update Rating Example",
-                value = """
+            required = true,
+            content = @io.swagger.v3.oas.annotations.media.Content(
+                    mediaType = "application/json",
+                    examples = @io.swagger.v3.oas.annotations.media.ExampleObject(
+                            name = "Update Rating Example",
+                            value = """
                     {
                     "ticketId": 4,
                     "text": "",
@@ -144,16 +144,16 @@ public class RatingController {
                     "createdById": 4
                     }
                     """
+                    )
             )
-        )
     )
     public RatingInfoDTO updateRating(
-        @io.swagger.v3.oas.annotations.Parameter(
-            description = "ID of the rating to update",
-            example = "7"
-        )
-        @PathVariable Long ratingId,
-        @RequestBody RatingCreationDTO dto) {
+            @io.swagger.v3.oas.annotations.Parameter(
+                    description = "ID of the rating to update",
+                    example = "7"
+            )
+            @PathVariable Long ratingId,
+            @RequestBody RatingCreationDTO dto) {
         return ratingService.updateRating(ratingId, dto);
     }
 
@@ -162,23 +162,23 @@ public class RatingController {
      -----------------------------------------------------------------*/
     @DeleteMapping("/{ratingId}")
     @Operation(
-        summary = "Delete a rating",
-        description = """
+            summary = "Delete a rating",
+            description = """
             Allows the original creator to delete a rating within 30 minutes of its creation.
             Deleting a rating reopens the associated ticket.
         """
     )
     public void deleteRating(
-        @io.swagger.v3.oas.annotations.Parameter(
-            description = "ID of the rating to delete",
-            example = "7"
-        )
-        @PathVariable Long ratingId,
-        @io.swagger.v3.oas.annotations.Parameter(
-            description = "ID of the user requesting deletion",
-            example = "4"
-        )
-        @RequestParam Long userId) {
+            @io.swagger.v3.oas.annotations.Parameter(
+                    description = "ID of the rating to delete",
+                    example = "7"
+            )
+            @PathVariable Long ratingId,
+            @io.swagger.v3.oas.annotations.Parameter(
+                    description = "ID of the user requesting deletion",
+                    example = "4"
+            )
+            @RequestParam Long userId) {
         ratingService.deleteRating(ratingId, userId);
     }
 }

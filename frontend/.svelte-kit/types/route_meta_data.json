@@ -1,0 +1,35 @@
+{
+	"/": [
+		"src/routes/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/api/messages/send": [
+		"src/routes/api/messages/send/+server.ts"
+	],
+	"/api/messages/[ticketId]": [
+		"src/routes/api/messages/[ticketId]/+server.ts"
+	],
+	"/api/support/[supporterId]": [
+		"src/routes/api/support/[supporterId]/+server.ts"
+	],
+	"/api/ticket/create": [
+		"src/routes/api/ticket/create/+server.ts"
+	],
+	"/api/ticket/[ticketId]": [
+		"src/routes/api/ticket/[ticketId]/+server.ts"
+	],
+	"/dashboard": [
+		"src/routes/dashboard/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/login": [
+		"src/routes/login/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/logout": [
+		"src/routes/logout/+server.ts"
+	],
+	"/supporter": [
+		"src/routes/+layout.server.ts"
+	]
+}
