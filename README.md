@@ -2,6 +2,14 @@
 
 ## 1. Analysis:
 ### Scenario ideation
+Scenario 1 – Reporting a bug (User)
+Anna is a user who notices that her company portal crashes when uploading files. She logs into the ticket system, creates a new ticket with "High" priority, and describes the issue. The system assigns it to a support staff member.
+
+Scenario 2 – Responding to a ticket (Support)
+Jonas, a support staff, sees Anna’s ticket in his list. He opens it, reads the description, and sends a message asking for a screenshot. Anna replies with the screenshot, and Jonas continues the investigation.
+
+Scenario 3 – Ticket resolution and feedback (User)
+Once the issue is fixed, Jonas replies with a solution and marks the ticket status as Open for Anna. Anna confirms the issue is resolved and submits a 5-star rating with a short thank-you message. The ticket is closed.
 ### Use case analysis
 The ticket system supports the following core use cases:
 
