@@ -69,7 +69,41 @@ The domain model defines the core business entities and their relationships for 
   - `High`, `Medium`, `Low`
 
 ## 3. Frontend implementation:
-Design, prototyping and realization of frontend functionality
+Through our problems with budibase we had to work with a pro code approach as we could not get budibase to work. With the late decision to switch to a pro code approach we unfortunatly had time difficulties to implement every function of the backend.
+
+**To start the backend**
+
+**Folder Structure and Key Concepts**
+
+src/hooks.server.ts
+This file runs on the server for every incoming request. Its job is to:
+Check if a Bearer token is included in the request.
+If a token is found, it decodes it to extract the userId, role, and the token itself.
+These values are stored in a user object, which becomes accessible throughout the app.
+This means the user info is available globally without needing to decode the token again in each request.
+
+src/routes/
+This folder defines the pages and URL structure of the app.
+Every folder inside routes becomes part of the URL path.
+For example:
+src/routes/dashboard → your-site.com/dashboard
+Inside each folder, the files have special roles:
++layout.svelte: Shared layout (e.g., navigation bar) for all child pages.
++page.svelte: The actual content shown for that route.
+Layouts are inherited, so you can define common UI elements once and reuse them across pages.
+
+src/routes/api/
+This folder is used for API requests from the frontend to the backend.
+Instead of making direct calls to the backend, all API logic is routed through here.
+This provides a centralized and secure way to communicate with your backend services.
+
+Technologies Used
+SvelteKit – Modern frontend framework
+TypeScript – Typed JavaScript for better developer experience
+TailwindCSS – Utility-first CSS framework
+DaisyUI – UI component library based on Tailwind
+HTML – Used within Svelte components
+
 
 ## 4. Business Logic and API design:
 This section explains the core business rules governing the Ticket-System and details the API design to interact with the system.
