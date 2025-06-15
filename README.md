@@ -429,3 +429,28 @@ Shows all the endpoints from the backend. Can be opened by adding "/swagger-ui.h
 **H2-Database**
 Can be used to show all the entities. Can be opened by adding "/h2-console" after the link from port 8080.
 
+### Logins:
+There are 7 users registered with the roles "User", "Support" and "Admin". For the login the username or email and the password are needed.
+
+#### Users
+  - The users are named user1, user2, user3 and user4.
+  - They have the e-mail userX@example.com, where X represents their respective number.
+  - They all have pass123 as password
+
+#### Support
+  - The support-users are named support1 and support2.
+  - They have the e-mail supportX@example.com, where X represents their respective number.
+  - They both have support123 as password
+
+#### Admin
+  - The admin is named admin1
+  - The admins e-mail is admin1@example.com
+  - The password for the admin is admin123
+
+### Demonstration:
+The demonstration was recorded. The mp4 file can be found on main.
+
+## Additional remarks
+The logical structure is saved as Logical structure.pdf on main.
+The project documentation is saved as Project Documentation.docs on main
+
