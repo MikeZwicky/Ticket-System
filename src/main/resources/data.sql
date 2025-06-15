@@ -6,26 +6,26 @@
 -- User Password: pass123 (hased: $2a$10$/vlKzJ7P5GEepFOL9GXuCOkm6mbg4Ix030PbnlP9QstsOHO.kbBvW)
 -- Support Password: support123 (hased: $2a$10$ew4kitRu8iaejIUWu.hsN.mT7hPzmVvJIlCst8mlnl8m4nC9/IV2m)
 INSERT INTO users (username, email, password, role, created_At) VALUES
-('admin1', 'admin1@example.com', '$2a$10$ATlfn3IJViknV5.6AheqtOgIyp3Pa396Nf3NNEw3iecbH1Z4EhxQa', 'Admin', TIMESTAMP '2024-01-01 08:00:00'),
 ('user1', 'user1@example.com', '$2a$10$/vlKzJ7P5GEepFOL9GXuCOkm6mbg4Ix030PbnlP9QstsOHO.kbBvW', 'User', TIMESTAMP '2024-05-01 10:00:00'),
 ('user2', 'user2@example.com', '$2a$10$/vlKzJ7P5GEepFOL9GXuCOkm6mbg4Ix030PbnlP9QstsOHO.kbBvW', 'User', TIMESTAMP '2024-05-05 12:30:00'),
 ('user3', 'user3@example.com', '$2a$10$/vlKzJ7P5GEepFOL9GXuCOkm6mbg4Ix030PbnlP9QstsOHO.kbBvW', 'User', TIMESTAMP '2024-05-10 09:15:00'),
 ('user4', 'user4@example.com', '$2a$10$/vlKzJ7P5GEepFOL9GXuCOkm6mbg4Ix030PbnlP9QstsOHO.kbBvW', 'User', TIMESTAMP '2024-05-15 14:45:00'),
 ('support1', 'support1@example.com', '$2a$10$ew4kitRu8iaejIUWu.hsN.mT7hPzmVvJIlCst8mlnl8m4nC9/IV2m', 'Support', TIMESTAMP '2024-05-02 11:20:00'),
-('support2', 'support2@example.com', '$2a$10$ew4kitRu8iaejIUWu.hsN.mT7hPzmVvJIlCst8mlnl8m4nC9/IV2m', 'Support', TIMESTAMP '2024-05-12 16:10:00');
+('support2', 'support2@example.com', '$2a$10$ew4kitRu8iaejIUWu.hsN.mT7hPzmVvJIlCst8mlnl8m4nC9/IV2m', 'Support', TIMESTAMP '2024-05-12 16:10:00'),
+('admin1', 'admin1@example.com', '$2a$10$ATlfn3IJViknV5.6AheqtOgIyp3Pa396Nf3NNEw3iecbH1Z4EhxQa', 'Admin', TIMESTAMP '2024-01-01 08:00:00');
 
 
 -- Insert Tickets
 INSERT INTO ticket (title, description, created_at, priority, created_by, assigned_to)
 VALUES
 ('Login Issue', 'Some users are unable to log in to their accounts using valid credentials.', '2024-05-03 10:27:24', 2, 1, 5),
-('Broken Dashboard Link', 'The dashboard displays a "Page not found" error when accessed.', '2024-05-05 08:13:10', 3, 2, 7),
+('Broken Dashboard Link', 'The dashboard displays a "Page not found" error when accessed.', '2024-05-05 08:13:10', 3, 2, 6),
 ('Delayed Email Notifications', 'System emails are arriving with a significant delay, affecting user communication.', '2024-05-05 11:17:09', 1, 3, 5),
 ('Profile Page Error 500', 'Users receive a server error (500) when trying to view or edit their profile.', '2024-05-07 09:48:53', 2, 4, 6),
 ('DB Connection Timeout', 'Frequent database connection timeouts are affecting the application''s performance.', '2024-05-08 12:15:15', 3, 1, 5),
 ('Mobile UI Misalignment', 'UI elements are misaligned when viewed on mobile devices, especially in portrait mode.', '2024-05-08 14:18:15', 1, 2, 6),
 ('Search Inaccuracy', 'The search feature is returning results unrelated to the query terms.', '2024-05-08 15:55:09', 2, 3, 5),
-('Short Session Expiry', 'User sessions are timing out too quickly, causing inconvenience.', '2024-05-10 13:05:44', 3, 4, 7),
+('Short Session Expiry', 'User sessions are timing out too quickly, causing inconvenience.', '2024-05-10 13:05:44', 3, 4, 6),
 ('Incorrect Password Reset', 'The password reset emails contain incorrect reset links or missing data.', '2024-05-11 07:48:01', 1, 1, 5),
 ('Missing Settings Styles', 'The settings page lacks proper styling, making it hard to navigate.', '2024-05-12 11:09:31', 2, 2, 6),
 ('Ticket Sorting Bug', 'Sorting options on the ticket list do not work as expected.', '2024-05-14 16:21:38', 3, 3, 5),
@@ -37,7 +37,7 @@ VALUES
 ('Dark Mode Settings', 'Dark mode preferences are not saved after logging out.', '2024-05-20 15:55:57', 3, 1, 5),
 ('Broken Help Link', 'The help link in the footer redirects to a 404 page.', '2024-05-22 14:24:40', 1, 2, 6),
 ('Missing Homepage Footer', 'The homepage footer is missing on all screen resolutions.', '2024-05-23 09:20:39', 2, 3, 5),
-('Feedback Form Error', 'Submitting the feedback form results in a server error.', '2024-05-23 11:36:37', 3, 4, 7);
+('Feedback Form Error', 'Submitting the feedback form results in a server error.', '2024-05-23 11:36:37', 3, 4, 6);
 
 -- Insert TicketStatusChanges
 INSERT INTO ticket_status_change (changed_at, ticket_id, status_for_assigned, status_for_creator) VALUES
@@ -348,8 +348,8 @@ UPDATE ticket SET latest_status_change_id = 66 WHERE ticket_id = 19;
 
 -- Ticket 20 (Feedback Form Error)
 INSERT INTO message (ticket_id, user_id, text, created_at) VALUES
-(20, 7, 'This error may be related to recent updates. We are looking into it.', TIMESTAMP '2024-05-23 11:40:00'),
-(20, 7, 'Could you provide more details or a screenshot of the feedback form error?', TIMESTAMP '2024-05-23 11:50:00'),
+(20, 6, 'This error may be related to recent updates. We are looking into it.', TIMESTAMP '2024-05-23 11:40:00'),
+(20, 6, 'Could you provide more details or a screenshot of the feedback form error?', TIMESTAMP '2024-05-23 11:50:00'),
 (20, 4, 'I still get a server error when submitting the feedback form. Here is a screenshot.', TIMESTAMP '2024-05-23 12:00:00');
 
 INSERT INTO ticket_status_change (changed_at, message_id, previous_change_id, rating_id, ticket_id, status_for_assigned, status_for_creator) VALUES
