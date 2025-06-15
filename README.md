@@ -142,11 +142,11 @@ Instead of making direct calls to the backend, all API logic is routed through h
 This provides a centralized and secure way to communicate with your backend services.
 
 Technologies Used
-SvelteKit – Modern frontend framework
-TypeScript – Typed JavaScript for better developer experience
-TailwindCSS – Utility-first CSS framework
-DaisyUI – UI component library based on Tailwind
-HTML – Used within Svelte components
+-  SvelteKit – Modern frontend framework
+-  TypeScript – Typed JavaScript for better developer experience
+-  TailwindCSS – Utility-first CSS framework
+-  DaisyUI – UI component library based on Tailwind
+-  HTML – Used within Svelte components
 
 
 ## 4. Business Logic and API design:
