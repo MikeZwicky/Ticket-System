@@ -428,6 +428,11 @@ Shows all the endpoints from the backend. Can be opened by adding "/swagger-ui.h
 
 **H2-Database**
 Can be used to show all the entities. Can be opened by adding "/h2-console" after the link from port 8080.
+For login the following settings and credentials are needed:
+  - Driver      Class: org.h2.Driver
+  - JDBC URL:   jdbc:h2:mem:testdb
+  - User Name:  TicketSystem
+  - Password:   pw
 
 ### Logins:
 There are 7 users registered with the roles "User", "Support" and "Admin". For the login the username or email and the password are needed.
