@@ -4,13 +4,19 @@
 ### Scenario ideation
 ### Use case analysis
 ### User story writing
-1. As an [support], I want to have a Web app so that I can use it on different mobile devices and on desktop computers.
-2. As an [support], I want to see a consistent visual appearance so that I can navigate easily, and it looks consistent.
-3. As an [support], I want to use list views so that I can explore and read my business data.
-4. As an [support], I want to use edit and create views so that I can maintain my business data.
-5. As an [support], I want to log-in so that I can authenticate myself.
-6. As a [user], I want to use list views so that I can access public pages.
-7. (Optional) As a [user], I want to authenticate myself so that I can read my personal and confidential data. 
+As a user, I want to create support tickets so that I can get help with issues.
+
+As a user, I want to view and update my tickets so that I can track and manage them.
+
+As support staff, I want tickets to be auto-assigned based on workload so that tasks are distributed fairly.
+
+As a user or support staff, I want to send messages on tickets so that we can communicate during the support process.
+
+As a user, I want to rate resolved tickets so that I can give feedback on the support I received.
+
+As an admin, I want to access all tickets and users so that I can manage the system.
+
+As a user, I want to log in securely so that I can access my personal ticket data.
 
 ## 2. Domain Design:
 
