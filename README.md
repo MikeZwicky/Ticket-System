@@ -2,37 +2,39 @@
 
 ## 1. Analysis:
 ### Scenario ideation
-Scenario 1 – Reporting a bug (User)
+**Scenario 1 – Reporting a bug (User)**
 Anna is a user who notices that her company portal crashes when uploading files. She logs into the ticket system, creates a new ticket with "High" priority, and describes the issue. The system assigns it to a support staff member.
 
-Scenario 2 – Responding to a ticket (Support)
+**Scenario 2 – Responding to a ticket (Support)**
 Jonas, a support staff, sees Anna’s ticket in his list. He opens it, reads the description, and sends a message asking for a screenshot. Anna replies with the screenshot, and Jonas continues the investigation.
 
-Scenario 3 – Ticket resolution and feedback (User)
+**Scenario 3 – Ticket resolution and feedback (User)**
 Once the issue is fixed, Jonas replies with a solution and marks the ticket status as Open for Anna. Anna confirms the issue is resolved and submits a 5-star rating with a short thank-you message. The ticket is closed.
+
 ### Use case analysis
 The ticket system supports the following core use cases:
 
-Create Ticket
+**Create Ticket**
 The user logs in and submits a new support ticket. They enter a title, optional description, and select a priority. The system assigns the ticket to the support staff with the lowest workload based on ticket priority weights.
 
-View and Update Ticket
+**View and Update Ticket**
 The user can view their own tickets, including the status and related messages. They can update or delete their ticket within 30 minutes of creation, as long as no messages or ratings have been added.
 
-Send Message on Ticket
+**Send Message on Ticket**
 Both users and support staff can post messages on a ticket. Messages allow for two-way communication. Depending on the input ("Keep" or "Switch"), the message may also change the ticket status for both sides.
 
-Assign Ticket Automatically
+**Assign Ticket Automatically**
 When a ticket is created, the system calculates each support staff’s workload and assigns the new ticket to the one with the lowest score. Ticket status is set to Open for support and Pending for the user.
 
-Rate Ticket
+**Rate Ticket**
 Once a ticket is resolved, the user can submit a rating (1–5) and optional feedback. Submitting a rating closes the ticket. Ratings are tied to the support staff and tracked for performance insights.
 
-Log In and Authenticate
+**Log In and Authenticate**
 All actors (user, support, admin) log in using a username or email and password. Upon successful login, they receive a JWT token that grants access based on their role.
 
-Admin System Access
+**Admin System Access**
 Admins can view and manage all tickets, users, messages, and ratings. They have full access to the system, including administrative functions not available to users or support staff.
+
 ### User story writing
 As a user, I want to create support tickets so that I can get help with issues.
 
@@ -94,7 +96,7 @@ The domain model defines the core business entities and their relationships for 
 - **UserRole:** Defines a user's system role. Values:
   - `User` – Can create and track tickets, and rate resolved ones.
   - `Support` – Can be assigned tickets, reply via messages, and be rated.
-  - `Admin` – Has full access including user and system configuration.
+  - `Admin` – Has full access including user and system configuration. Is mainly used for bug-fixxing.
 
 - **TicketStatus:** Represents a ticket's lifecycle stage. Values:
   - `Open` – Shown to the user with the open task (e.g., needs to solve the issue, provide info, or send a screenshot).
@@ -107,26 +109,12 @@ The domain model defines the core business entities and their relationships for 
 ## 3. Frontend implementation:
 Through our problems with budibase we had to work with a pro code approach as we could not get budibase to work. With the late decision to switch to a pro code approach we unfortunatly had time difficulties to implement every function of the backend.
 
-## To start the backend
-  - A new codespace has to be opened
-  - CTRL SHIFT P to input a task
-  - Input Tasks: run task
-  - run backend
-  - Again CTRL Shift P to input another task
-  - input Tasks: run task
-  - run frontend
-  - open http://localhost:5173/ outputed in the terminal
+### Folder Structure and Key Concepts
 
-## Folder Structure and Key Concepts
+**src/hooks.server.ts**
+This file is used for security and explained in the security section.
 
-src/hooks.server.ts
-This file runs on the server for every incoming request. Its job is to:
-Check if a Bearer token is included in the request.
-If a token is found, it decodes it to extract the userId, role, and the token itself.
-These values are stored in a user object, which becomes accessible throughout the app.
-This means the user info is available globally without needing to decode the token again in each request.
-
-src/routes/
+**src/routes/**
 This folder defines the pages and URL structure of the app.
 Every folder inside routes becomes part of the URL path.
 For example:
@@ -136,12 +124,12 @@ Inside each folder, the files have special roles:
 +page.svelte: The actual content shown for that route.
 Layouts are inherited, so you can define common UI elements once and reuse them across pages.
 
-src/routes/api/
+**src/routes/api/**
 This folder is used for API requests from the frontend to the backend.
 Instead of making direct calls to the backend, all API logic is routed through here.
 This provides a centralized and secure way to communicate with your backend services.
 
-## Technologies Used
+### Technologies Used
 -  SvelteKit – Modern frontend framework
 -  TypeScript – Typed JavaScript for better developer experience
 -  TailwindCSS – Utility-first CSS framework
@@ -177,6 +165,12 @@ Here are all API endpoints from swagger listed.
   - Input:          `username`, `email`, `password`
   - Details:        Username and email must be both new, assigns the role `User`
   - Returns:        Success message or 400 on duplicates
+ 
+- **Current User Controller '/api/user/current'**
+-   Purpose:        Get information about the currently authenticated user
+-   Input:          None (requires valid JWT in Authorization header)
+-   Details:        Returns user details including userId, username, email, role, and account creation date. Returns 401 if not authenticated, 404 if user not found.
+-   Returns:        JSON with user info or error status
 
 #### Ticket Controller
 
@@ -385,10 +379,53 @@ Implemented in the `LoginRegistrationController`:
   - Encodes the password using BCrypt before storing.
   - Assigns the default role `User`.
   - Returns success or appropriate error messages.
-
----
-
-This security setup provides robust authentication and role-based authorization for the ticket system API, leveraging industry-standard JWT tokens and Spring Security best practices.
+ 
+- **Get Current User Info (`GET /api/user/current`):**
+  - This endpoint is used after the login to authenticate the user
+  - Requires a valid JWT token in the Authorization header.
+  - Returns detailed information about the currently authenticated user, including `userId`, `username`, `email`, `role`, and `createdAt`.
+  - Returns HTTP 401 if the user is not authenticated.
+  - Returns HTTP 404 if the user is not found in the database.
+ 
+### Security in the frontend
+**src/hooks.server.ts**
+This file runs on the server for every incoming request. Its job is to:
+Check if a Bearer token is included in the request.
+If a token is found, it decodes it to extract the userId, role, and the token itself.
+These values are stored in a user object, which becomes accessible throughout the app.
+This means the user info is available globally without needing to decode the token again in each request.
 
 ## 7. Demonstrator:
 Integration of frontend and backend to realize an end-to-end application consuming REST APIs from the web service
+
+###Setup (Prerequisites)
+  - Backend Spring Boot app running (default port 8080)
+  - Frontend SvelteKit app running (e.g., port 5173)
+  - Both connected and configured to communicate via REST API
+
+### To start the app
+  - A new codespace has to be opened
+  - Click CTRL + SHIFT + P
+  - Enter: "Tasks: run task"
+  - Click: "run backend"
+  - Wait until backend runs
+  - Click again CTRL + SHIFT + P
+  - Enter: "Tasks: run task"
+  - Click: "run frontend"
+  - Open http://localhost:5173/ outputed in the terminal
+
+### Links to the different pages
+After starting the app the port tab in codespace should show multiple ports. The two links for the port 8080 and 5173 are important.
+
+**Port 8080**
+Opens a website with the text "Hello, welcome to our TicketSytem!" if the backend is running. The only purpouse is to show if it runs.
+
+**Port 5173**
+Opens the frontend
+
+**Swagger**
+Shows all the endpoints from the backend. Can be opened by adding "/swagger-ui.html" after the link from port 8080.
+
+**H2-Database**
+Can be used to show all the entities. Can be opened by adding "/h2-console" after the link from port 8080.
+
