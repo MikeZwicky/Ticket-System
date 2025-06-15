@@ -449,11 +449,11 @@ There are 7 users registered with the roles "User", "Support" and "Admin". For t
 
 ### Demonstration:
 
-The demonstration was recorded. The mp4 file can be found on main.
+The demonstration was recorded. The video was uploaded on steam.
 
 ## Additional remarks
 
-The logical structure is saved as Logical structure.pdf on main.
+The logical structure is saved as Logical Domain model.pdf on main.
 
-The project documentation is saved as Project Documentation.docx on main
+The project documentation is saved as Project Documentation.pdf on main
 
