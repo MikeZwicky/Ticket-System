@@ -10,12 +10,12 @@
       "mavenVersion": "3.9.8",
       "installGradle": false
     },
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "20"
+    "ghcr.io/devcontainers/features/node": {
+      "version": "lts"
     }
   },
 
-  "forwardPorts": [8080, 5173],
+  "forwardPorts": [8080, 5173], // Add 5173 for SvelteKit dev server
 
   "customizations": {
     "vscode": {
@@ -27,5 +27,7 @@
         "github.copilot"
       ]
     }
-  }
+  },
+
+  "postStartCommand": "code . && sleep 2 && echo '🟢 Ready: Run tasks via Ctrl+Shift+P → Tasks: Run Task'"
 }

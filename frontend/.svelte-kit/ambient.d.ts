@@ -30,7 +30,6 @@ declare module '$env/static/private' {
 	export const GITHUB_CODESPACE_TOKEN: string;
 	export const USER: string;
 	export const npm_config_user_agent: string;
-	export const GIT_EDITOR: string;
 	export const HOSTNAME: string;
 	export const GIT_ASKPASS: string;
 	export const npm_node_execpath: string;
@@ -60,8 +59,8 @@ declare module '$env/static/private' {
 	export const ContainerVersion: string;
 	export const GITHUB_API_URL: string;
 	export const RepositoryName: string;
-	export const SDKMAN_CANDIDATES_API: string;
 	export const _: string;
+	export const SDKMAN_CANDIDATES_API: string;
 	export const npm_config_prefix: string;
 	export const npm_config_npm_version: string;
 	export const CLOUDENV_ENVIRONMENT_ID: string;
@@ -136,7 +135,6 @@ declare module '$env/dynamic/private' {
 		GITHUB_CODESPACE_TOKEN: string;
 		USER: string;
 		npm_config_user_agent: string;
-		GIT_EDITOR: string;
 		HOSTNAME: string;
 		GIT_ASKPASS: string;
 		npm_node_execpath: string;
@@ -166,8 +164,8 @@ declare module '$env/dynamic/private' {
 		ContainerVersion: string;
 		GITHUB_API_URL: string;
 		RepositoryName: string;
-		SDKMAN_CANDIDATES_API: string;
 		_: string;
+		SDKMAN_CANDIDATES_API: string;
 		npm_config_prefix: string;
 		npm_config_npm_version: string;
 		CLOUDENV_ENVIRONMENT_ID: string;
