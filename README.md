@@ -448,9 +448,12 @@ There are 7 users registered with the roles "User", "Support" and "Admin". For t
   - The password for the admin is admin123
 
 ### Demonstration:
+
 The demonstration was recorded. The mp4 file can be found on main.
 
 ## Additional remarks
+
 The logical structure is saved as Logical structure.pdf on main.
-The project documentation is saved as Project Documentation.docs on main
+
+The project documentation is saved as Project Documentation.docx on main
 
