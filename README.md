@@ -107,7 +107,7 @@ The domain model defines the core business entities and their relationships for 
 ## 3. Frontend implementation:
 Through our problems with budibase we had to work with a pro code approach as we could not get budibase to work. With the late decision to switch to a pro code approach we unfortunatly had time difficulties to implement every function of the backend.
 
-##To start the backend
+## To start the backend
   - A new codespace has to be opened
   - CTRL SHIFT P to input a task
   - Input Tasks: run task
@@ -117,7 +117,7 @@ Through our problems with budibase we had to work with a pro code approach as we
   - run frontend
   - open http://localhost:5173/ outputed in the terminal
 
-##Folder Structure and Key Concepts
+## Folder Structure and Key Concepts
 
 src/hooks.server.ts
 This file runs on the server for every incoming request. Its job is to:
@@ -141,7 +141,7 @@ This folder is used for API requests from the frontend to the backend.
 Instead of making direct calls to the backend, all API logic is routed through here.
 This provides a centralized and secure way to communicate with your backend services.
 
-##Technologies Used
+## Technologies Used
 -  SvelteKit – Modern frontend framework
 -  TypeScript – Typed JavaScript for better developer experience
 -  TailwindCSS – Utility-first CSS framework
