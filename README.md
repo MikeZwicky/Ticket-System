@@ -3,6 +3,28 @@
 ## 1. Analysis:
 ### Scenario ideation
 ### Use case analysis
+The ticket system supports the following core use cases:
+
+Create Ticket
+The user logs in and submits a new support ticket. They enter a title, optional description, and select a priority. The system assigns the ticket to the support staff with the lowest workload based on ticket priority weights.
+
+View and Update Ticket
+The user can view their own tickets, including the status and related messages. They can update or delete their ticket within 30 minutes of creation, as long as no messages or ratings have been added.
+
+Send Message on Ticket
+Both users and support staff can post messages on a ticket. Messages allow for two-way communication. Depending on the input ("Keep" or "Switch"), the message may also change the ticket status for both sides.
+
+Assign Ticket Automatically
+When a ticket is created, the system calculates each support staff’s workload and assigns the new ticket to the one with the lowest score. Ticket status is set to Open for support and Pending for the user.
+
+Rate Ticket
+Once a ticket is resolved, the user can submit a rating (1–5) and optional feedback. Submitting a rating closes the ticket. Ratings are tied to the support staff and tracked for performance insights.
+
+Log In and Authenticate
+All actors (user, support, admin) log in using a username or email and password. Upon successful login, they receive a JWT token that grants access based on their role.
+
+Admin System Access
+Admins can view and manage all tickets, users, messages, and ratings. They have full access to the system, including administrative functions not available to users or support staff.
 ### User story writing
 As a user, I want to create support tickets so that I can get help with issues.
 
