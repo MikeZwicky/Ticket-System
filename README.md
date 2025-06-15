@@ -52,7 +52,7 @@ As a user, I want to log in securely so that I can access my personal ticket dat
 
 ## 2. Domain Design:
 
-The domain model defines the core business entities and their relationships for the ticket management system. Each entity plays a specific role in tracking, managing, and interacting with support tickets and users.
+The domain model defines the core business entities and their relationships for the ticket management system. Each entity plays a specific role in tracking, managing, and interacting with support tickets and users. The domain model is saved as "Domain model.pdf" on main.
 
 ### Entities
 
@@ -453,7 +453,6 @@ The demonstration was recorded. The video was uploaded on steam.
 
 ## Additional remarks
 
-The logical structure is saved as Logical Domain model.pdf on main.
+The project documentation is saved as "Project Documentation.pdf" on main
 
-The project documentation is saved as Project Documentation.pdf on main
 
