@@ -398,7 +398,7 @@ This means the user info is available globally without needing to decode the tok
 ## 7. Demonstrator:
 Integration of frontend and backend to realize an end-to-end application consuming REST APIs from the web service
 
-###Setup (Prerequisites)
+### Setup (Prerequisites)
   - Backend Spring Boot app running (default port 8080)
   - Frontend SvelteKit app running (e.g., port 5173)
   - Both connected and configured to communicate via REST API
@@ -428,6 +428,7 @@ Shows all the endpoints from the backend. Can be opened by adding "/swagger-ui.h
 
 **H2-Database**
 Can be used to show all the entities. Can be opened by adding "/h2-console" after the link from port 8080.
+
 For login the following settings and credentials are needed:
   - Driver      Class: org.h2.Driver
   - JDBC URL:   jdbc:h2:mem:testdb
